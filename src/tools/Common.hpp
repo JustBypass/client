@@ -8,8 +8,12 @@
 class ShellCommand;
 class client;
 
-extern std::map<std::string,ShellCommand*> allCommands;
-extern std::list<std::string> history;
-extern client cli;
-extern boost::asio::io_service IOservice;
+    extern std::map<std::string,ShellCommand*> allUserCommands;
+    extern std::list<std::string> userHistory;
+
+    extern std::map<std::string,ShellCommand*> allServerCommands;
+    extern std::list<std::string> serverHistory;
+
+    extern client cli;
+    extern boost::asio::io_service IOservice;
 #endif

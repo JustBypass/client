@@ -1,5 +1,7 @@
 #include "../ShellCommand.hpp"
-class DisconnectShellCommand: public ShellCommand{
+
+class SendMessageShellCommand : public ShellCommand{
+public:
     void execute();
     std::string toString();
 };

@@ -1,6 +1,6 @@
 #include "./ShellCommand.hpp"
 
-class OnlineUsersShellCommand : public ShellCommand{
+class HistoryServerShellCOmmand: public ShellCOmmand{
     void execute();
     std::string toString();
 };

@@ -40,18 +40,15 @@ public:
     void send(std::vector<std::string>);
     void send(std::string);
 public:
-    client(io_service& ioservice,tcp::endpoint& ep);
+    client(io_service& ioservice);
 public:
-    void connect();
+    void connect(std::string ip,int port);
     void disconnect(); 
 public:
     std::vector<std::string> get_online_users();
 private:
     static void handle_connect(const boost::system::error_code& error);
-private:
-   // void server_shell_loop();
-   // static void handle_new();
-private:
+public:
     std::string message_now;
     size_t sizes[4];
     size_t level_now;

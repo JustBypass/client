@@ -1,17 +1,15 @@
-#include <list>
-#include <vector>
 #include <map>
-class client;
+#include <string>
+#include <list>
 
-#ifndef __SHELL_H__
-#define __SHELL_H__
+class ShellCommand;
 
 class Shell{
-private:
 public:
     void launch();
-   // std::list<ShellCommand> history;
-  //  std::list<ShellCommand> trash;
-    
+public:
+    Shell(std::map<std::string,ShellCommand*>& _cmd,std::list<std::string>& _hist):cmd(_cmd),hist(_hist){};
+private:
+    std::map<std::string,ShellCommand*>& cmd;
+    std::list<std::string>& hist;
 };
-#endif

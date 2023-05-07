@@ -11,14 +11,21 @@
 void ConnectShellCommand::execute(){
     std::cout<<"Enter your nickname:";
     
+    std::string ip;
+    int port;
+
     std::string enter;
     std::cin >> enter;
-    cli.name = enter;
+        cli.name = enter;
+    std::cout << "Enter ip number:";
+    std::cin >> enter;
+        ip = enter;
+    std::cout << "Enter port number:";
+    std::cin >> enter;
+      port = enter;
+
     try{
-        cli.connect();
-        // socket->write_some() send header LOGIN with your name
-       // boost::thread_group threads;
-       
+        cli.connect(ip,port);       
     }catch(std::exception& ex){
         std::cout<<ex.what()<<'\n';
     }

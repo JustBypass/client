@@ -1,23 +1,12 @@
-#include "./Shell.hpp" 
-#include "./user_cli/HelpShellCommand.hpp"
-#include "./user_cli/ExitShellCommand.hpp"
-#include "./user_cli/ConnectShellCommand.hpp"
-#include "../client/client.hpp"
+#include "./Shel.hpp"
+#include <iostream>
+#include "./ClosedSession.hpp"
+#include <boost/system>
 #include "../tools/Common.hpp"
-#include "./user_cli/HistoryShellCommand.hpp"
+#include "../client/client.hpp"
 
 void Shell::launch(){
-  
-   // HelpShellCommand a(); 
-    allCommands.insert(std::make_pair(std::string("help"),new HelpShellCommand()));
-    allCommands.insert(std::make_pair(std::string("exit"),new ExitShellCommand()));
-    allCommands.insert(std::make_pair(std::string("connect"),new ConnectShellCommand()));
-    allCommands.insert(std::make_pair(std::string("disconnect"),new ConnectShellCommand()));
-    allCommands.insert(std::make_pair(std::string("messages"),new ConnectShellCommand()));
-    allCommands.insert(std::make_pair(std::string("history"),new HistoryShellCommand()));
-    allCommands.insert(std::make_pair(std::string("online"),new ConnectShellCommand()));
-
-    printf("\033c");
+     printf("\033c");
     std::cout<< "░█░█░█░█▀▀▀░█░░░░█▀▀▀░█▀▀█░█▀█▀█░█▀▀▀░\n"<<
                 "░█░█░█░█▀▀▀░█░░░░█░░░░█░░█░█░█░█░█▀▀▀░\n"
              << "░▀▀▀▀▀░▀▀▀▀░▀▀▀▀░▀▀▀▀░▀▀▀▀░▀░▀░▀░▀▀▀▀░\n";
@@ -31,12 +20,12 @@ void Shell::launch(){
             std::cin >> str;
 
             [&str](){
-                if(allCommands.count(str) <= 0){
+                if(cmd.count(str) <= 0){
                     std::cout << std::string("Command '"  + str +"' not found\n");
                 }
                 else {
-                    history.push_back(str);                  
-                    allCommands[str]->execute();
+                    hist.push_back(str);                  
+                    cmd[str]->execute();
                 }
             }() ;  
         }

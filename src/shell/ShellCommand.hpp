@@ -9,7 +9,6 @@ public:
    // virtual void cancel();   
     virtual std::string toString() = 0;
     virtual ~ShellCommand(){}
-
 };
 
 #endif

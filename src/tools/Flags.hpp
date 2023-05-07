@@ -1,9 +1,6 @@
-#include <string>
-
-class processor{
+static class Flags{
 public:
-    std::string processed_message(std::string);
-     enum request_flag_type{
+    enum Request{
         _FILE,
         _MSG,
         _REQ_ONLINE,
@@ -12,10 +9,10 @@ public:
         _EXIT,
         _SET_NICKNAME
     };
-    enum responce_flag_type{
+    enum Response{
         ERROR,
         ONLINE,
-        MSG_TYPE_EXCEPTION
+        MSG_TYPE_EXCEPTION,
+        UNKNOWN_FORMAT
     };
-
 };
