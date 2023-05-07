@@ -13,7 +13,7 @@ using namespace boost::asio::ip ;
 typedef boost::shared_ptr<tcp::socket> socket_ptr;
 typedef boost::shared_ptr<std::string> string_ptr;
 
-class client{
+class client : public boost::enable_shared_from_this{
 private:
     tcp::endpoint endpoint;
     enum request_flag_type{
