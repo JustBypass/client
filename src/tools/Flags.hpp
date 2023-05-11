@@ -1,4 +1,4 @@
-static class Flags{
+ class Flags{
 public:
     enum Request{
         _FILE,

@@ -9,7 +9,7 @@ std::string HistoryShellCommand::toString()
 {   
     std::string str = "history: \n";
     int i = 1;
-    for(std::list<std::string>::const_iterator iter = history.begin();iter != history.end();++iter){
+    for(std::list<std::string>::const_iterator iter = userHistory.begin();iter != userHistory.end();++iter){
        // str += '\t'+(i++)+". " + (iter) + '\n';
         str += '\t';
         str += i++;

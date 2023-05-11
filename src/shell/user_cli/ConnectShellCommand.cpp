@@ -22,7 +22,7 @@ void ConnectShellCommand::execute(){
         ip = enter;
     std::cout << "Enter port number:";
     std::cin >> enter;
-      port = enter;
+      port = std::atoi(enter.c_str());
 
     try{
         cli.connect(ip,port);       
