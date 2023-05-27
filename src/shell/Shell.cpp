@@ -8,6 +8,16 @@
 #include <boost/asio.hpp>
 #include "./ShellCommand.hpp"
 
+void Shell::mode(){
+    if(cli.name.size() != 0)
+    {
+        std::cout<< cli.name + " << ";
+    }   
+    else{
+        std::cout <<"(shell) << ";
+    }
+}
+
 
 void Shell::launch(){
      printf("\033c");
@@ -18,7 +28,8 @@ void Shell::launch(){
     {
         while(1){
 
-            std::cout<< cli.name + " << ";
+            //std::cout<< cli.name + " << ";
+            void mode();
 
             std::string str;
             std::cin >> str;
@@ -26,7 +37,6 @@ void Shell::launch(){
             // choose 1st part, and pass the 2nd part to the argument as string to the cmd execute(std::string args) method 
             // or create map and execute(std::map<std::string,std::string>);
             /// here we need to split our command with
-
             [&](){
                 if(cmd.count(str) <= 0){
                     std::cout << std::string("Command '"  + str +"' not found\n");

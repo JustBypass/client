@@ -3,6 +3,7 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/enable_shared_from_this.hpp>
 #include <vector>
 #include <deque>
 
@@ -13,7 +14,7 @@ using namespace boost::asio::ip ;
 typedef boost::shared_ptr<tcp::socket> socket_ptr;
 typedef boost::shared_ptr<std::string> string_ptr;
 
-class client {
+class client :public boost::enable_shared_from_this<client>{
 private:
     tcp::endpoint endpoint;
     enum request_flag_type{
@@ -37,10 +38,7 @@ public:
 public:
     std::string get_name();
 public:
-    void send(std::vector<std::string>);
-    void send(std::string);
-public:
-    client(io_service& ioservice);
+    client(io_context& ioservice);
 public:
     void connect(std::string ip,int port);
     void disconnect(); 
@@ -50,7 +48,13 @@ private:
     static void handle_connect(const boost::system::error_code& error);
 public:
     std::string message_now;
-    size_t sizes[4];
 private:
     std::deque<std::string> messages;
+    int sizes[4];
+private:
+    void header(const boost::system::error_code& ec );
+    void read_body(const boost::system::error_code& ec);
+    void print_new();
+    void start_handle_new();
+
 };

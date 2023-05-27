@@ -1,12 +1,16 @@
-//#include "../../tools/Common.hpp"
+#include "../../tools/Common.hpp"
 #include "./ServerShell.hpp"
-//#include "../../client/client.hpp"
+#include "../../client/client.hpp"
  //#include <boost/asio.hpp>
+ #include <iostream>
+void ServerShell::mode(){
+    std::cout<< cli.name  <<"(server) << ";
+}
 
 ServerShell::ServerShell(std::map<std::string,ShellCommand*> _map,std::list<std::string>  _history):Shell(_map,_history){
     
 }
 void ServerShell::work_after(client& client){
-  //  client.sock->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-	//client.sock->close();	
+    client.sock->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+	client.sock->close();	
 }

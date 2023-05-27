@@ -15,5 +15,5 @@ class client;
     extern std::list<std::string> serverHistory;
 
     extern client cli;
-    extern boost::asio::io_service IOservice;
+    extern boost::asio::io_context IOservice;
 #endif

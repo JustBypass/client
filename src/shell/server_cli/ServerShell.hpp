@@ -9,6 +9,8 @@ public:
     ServerShell(std::map<std::string,ShellCommand*> _map,std::list<std::string>  _history);
 public:
     void work_after(client& client);
+    void mode()override;
+
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "./shell/user_cli/ConnectShellCommand.hpp"
 #include "./shell/server_cli/DisconnectShellCommand.hpp"
 #include "./shell/server_cli/SendMessageShellCommand.hpp"
+#include "./shell/server_cli/OnlineUsersShellCommand.hpp"
 #include <list>
 
 class ShellCommand;
@@ -25,7 +26,8 @@ void init(){
     allUserCommands.insert(std::make_pair(std::string("hist"),new HistoryShellCommand()));
     allUserCommands.insert(std::make_pair(std::string("online"),new ConnectShellCommand()));
 
-	//allServerCommands.insert(std::make_pair(std::string("cr"),new SendMessageShellCommand()));
+	allServerCommands.insert(std::make_pair(std::string("cr"),new SendMessageShellCommand()));
+    allServerCommands.insert(std::make_pair(std::string("onl"),new OnlineUsersShellCommand()));
     //allServerCommands.insert(std::make_pair(std::string("onl"),new DisconnectShellCommand()));
    // allServerCommands.insert(std::make_pair(std::string("ch"),new HistoryServerShellCommand()));
    // allServerCommands.insert(std::make_pair(std::string("dis"),new DisconnectShellCommand()));
@@ -33,7 +35,7 @@ void init(){
 
 
 
-boost::asio::io_service IOservice;
+boost::asio::io_context IOservice;
 
 //tcp::endpoint ep(ip::address::from_string("127.0.0.1"),8125);
 

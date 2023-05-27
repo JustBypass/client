@@ -6,30 +6,10 @@
 #include "../../tools/Flags.hpp"
 #include "../../builders/meter.hpp"
 #include <fstream>
-
-std::string convert(std::string from,std::string to,size_t flag,std::string body){
-    meter _meter;
-
-    auto arr =  (new meter)->get_sizes(from,to,body);
-    char buffer[4*sizeof(int)];
-    memcpy(buffer,arr,4*sizeof(int));
-
-    auto foo = std::string(reinterpret_cast<const char*>(buffer),4*sizeof(int));
-     
-    delete(arr);
-
-    return foo + std::string("from:") + from + 
-                                        '\n'+std::string("to:") + 
-                                                to + 
-                                        '\n' + 
-                                        std::string("flag:") +  
-                                                        std::string((char*)&flag,sizeof(int)) + '\n' +
-                                                            std::string("data:'") + 
-                                                                    body + "'";
-
-}
+#include <iostream>
 
 void SendMessageShellCommand::execute(){
+    boost::shared_ptr<meter> _meter(new meter());
     std::string input;
         std::cout << "What type of message? [F/M]";
     std::cin >> input;
@@ -47,7 +27,8 @@ void SendMessageShellCommand::execute(){
         std::string body(std::istreambuf_iterator<char>{ifs},{}) ;
 
         _body = body;
-        flag = Flags::Request::_FILE;       
+        flag = Flags::Request::_FILE;    
+        ifs.close();   
     }
     else
     {
@@ -57,15 +38,21 @@ void SendMessageShellCommand::execute(){
         flag = Flags::Request::_MSG;
     }
     
-
     std::cout << "Enter consumers[comma-separated]: ";
     std::cin >> input;
     to = input;
-
-    std::string result = convert(from,to,flag,_body);
+    if(to == "*"){
+        to = "";
+        flag = Flags::Request::_MSG_ALL;
+    }
+    std::string result = _meter->convert(from,to,flag,_body);
+    std::cout <<"result= "<<result.size() <<std::endl;
     cli.sock->async_write_some(boost::asio::buffer(result,result.size()),[&](const boost::system::error_code& error,size_t bytes){
         if(!error){
             std::cout << "Message delivered![";// + std::string(bytes) + " bytes]\n";
+        }
+        else{
+            std::cout << "Some error whilw delivering\n";
         }
     });
 }
